@@ -1,0 +1,16 @@
+{
+  "name": "mailpulserss",
+  "version": "1.0.0",
+  "description": "generate rss feed for mail pulse",
+  "main": "app.js",
+  "scripts": {},
+  "dependencies": {
+    "moment": "2.18.1",
+    "request": "^2.88.0",
+    "twostep": "0.4.2",
+    "underscore": "1.8.3"
+  },
+  "devDependencies": {
+    "jshint": "2.4.4"
+  }
+}

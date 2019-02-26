@@ -1,0 +1,38 @@
+'use strict';
+
+var Steppy = require('twostep').Steppy,
+	moment = require('moment'),
+	helpers = require('../helpers'),
+	config = require('../config'),
+	fs = require('fs');
+
+var getPublications = function(callback) {
+	Steppy(
+		function() {
+			helpers.getPublications({
+				statuses: ['published'],
+				publishDateFrom: moment().startOf('day').subtract(config.publications.dayCount, 'days').toDate()
+			}, this.slot());
+		},
+		callback
+	)
+};
+
+exports.makeAndWriteRSS = function(callback) {
+	Steppy(
+		function(){
+			getPublications(this.slot());
+		},
+		function(err, publications) {
+			console.log(publications)
+			if (publications && publications.total) {
+				console.log('Found %s publications.', publications.total)
+			} else {
+				throw new Error('Empty publication list')
+			}
+			// var rss = generateRss(publications);
+
+		},
+		callback
+	)
+};
